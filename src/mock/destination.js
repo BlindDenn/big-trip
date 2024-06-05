@@ -1,7 +1,7 @@
 import {
   getRandomItem,
   getSomeItems
-} from './utils.js';
+} from '../utils.js';
 
 const IMGS_PATH = '/img/photos/';
 

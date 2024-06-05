@@ -1,7 +1,8 @@
+import dayjs from 'dayjs';
 import {
   getRandomBoolean,
   getRandomItem
-} from './utils.js';
+} from '../utils.js';
 import { generateDestination } from './destination.js';
 
 const TYPE = [
@@ -16,10 +17,13 @@ const TYPE = [
   'Restaurant'
 ];
 
+const nowDate = dayjs();
+const shiftTime = 35;
+
 export const generateEvent = () => ({
   basePrice: null,
-  dateFrom: null,
-  dateTo: null,
+  dateFrom: nowDate,
+  dateTo: nowDate.add(shiftTime, 'minute'),
   destination: generateDestination(),
   id: null,
   isFavorite: getRandomBoolean(),

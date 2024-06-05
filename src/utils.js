@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const getRandomBoolean = () => Math.random() < 0.5;
 
 // const shuffleArray = (arr) => arr.sort(() => Math.random() - 0.5);
@@ -24,8 +26,13 @@ const getSomeItems = (arr) => {
   return shuffleArray(result);
 };
 
+const humanizeEventDate = (date) => dayjs(date).format('MMM D');
+const humanizeEventTime = (date) => dayjs(date).format('HH:mm');
+
 export {
   getRandomBoolean,
   getRandomItem,
-  getSomeItems
+  getSomeItems,
+  humanizeEventDate,
+  humanizeEventTime
 };
