@@ -11,12 +11,14 @@ export default class EventsListPresenter {
     this.eventsListContainer = eventsListContainer;
   }
 
-  init() {
+  init(eventsModel) {
+    this.eventsModel = eventsModel;
+    this.events = [...this.eventsModel.getEvents()];
     render(this.eventsListComponent, this.eventsListContainer);
     render(new EventEditView(), this.eventsListComponent.getElement());
     render(new EventAddView(), this.eventsListComponent.getElement());
-    for (let i = 1; i <= 3; i++) {
-      render(new EventView(), this.eventsListComponent.getElement());
+    for (const event of this.events) {
+      render(new EventView(event), this.eventsListComponent.getElement());
     }
   }
 }
