@@ -16,3 +16,5 @@ render(new SortView(), eventsContainer);
 const eventsListPresenter = new EventsListPresenter(eventsContainer);
 
 eventsListPresenter.init(eventsModel);
+
+import './mock/destination.js';

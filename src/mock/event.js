@@ -1,3 +1,9 @@
+import {
+  getRandomBoolean,
+  getRandomItem
+} from './utils.js';
+import { generateDestination } from './destination.js';
+
 const TYPE = [
   'Taxi',
   'Bus',
@@ -10,18 +16,13 @@ const TYPE = [
   'Restaurant'
 ];
 
-const getRandomItem = (arr) => {
-  const randomIndex = Math.floor(Math.random() * arr.length);
-  return arr[randomIndex];
-};
-
 export const generateEvent = () => ({
   basePrice: null,
   dateFrom: null,
   dateTo: null,
-  destination: null,
+  destination: generateDestination(),
   id: null,
-  isFavorite: false,
+  isFavorite: getRandomBoolean(),
   offers: null,
   type: getRandomItem(TYPE),
 });
