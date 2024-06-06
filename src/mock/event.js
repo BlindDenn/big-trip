@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import {
+  getRandomInteger,
   getRandomBoolean,
   getRandomItem
 } from '../utils.js';
@@ -18,12 +19,11 @@ const TYPE = [
 ];
 
 const nowDate = dayjs();
-const shiftTime = 35;
 
 export const generateEvent = () => ({
-  basePrice: null,
+  basePrice: getRandomInteger(25, 899),
   dateFrom: nowDate,
-  dateTo: nowDate.add(shiftTime, 'minute'),
+  dateTo: nowDate.add(getRandomInteger(15, 120), 'minute'),
   destination: generateDestination(),
   id: null,
   isFavorite: getRandomBoolean(),

@@ -1,7 +1,7 @@
 import { render } from '../render.js';
 import EventsListView from '../view/events-list-view.js';
 import EventView from '../view/event-view.js';
-import EventAddView from '../view/event-add.js';
+// import EventAddView from '../view/event-add.js';
 import EventEditView from '../view/event-edit.js';
 
 export default class EventsListPresenter {
@@ -16,7 +16,7 @@ export default class EventsListPresenter {
     this.events = [...this.eventsModel.getEvents()];
     render(this.eventsListComponent, this.eventsListContainer);
     render(new EventEditView(), this.eventsListComponent.getElement());
-    render(new EventAddView(), this.eventsListComponent.getElement());
+    // render(new EventAddView(), this.eventsListComponent.getElement());
     for (const event of this.events) {
       render(new EventView(event), this.eventsListComponent.getElement());
     }
