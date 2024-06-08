@@ -1,39 +1,39 @@
 
 export const TYPE = [
   {
-    'name': 'Taxi',
+    'title': 'Taxi',
     'icon': 'taxi'
   },
   {
-    'name': 'Bus',
+    'title': 'Bus',
     'icon': 'bus'
   },
   {
-    'name': 'Train',
+    'title': 'Train',
     'icon': 'train'
   },
   {
-    'name': 'Ship',
+    'title': 'Ship',
     'icon': 'ship'
   },
   {
-    'name': 'Drive',
+    'title': 'Drive',
     'icon': 'drive'
   },
   {
-    'name': 'Flight',
+    'title': 'Flight',
     'icon': 'flight'
   },
   {
-    'name': 'Check-in',
+    'title': 'Check-in',
     'icon': 'check-in'
   },
   {
-    'name': 'Sightseeing',
+    'title': 'Sightseeing',
     'icon': 'Sightseeing'
   },
   {
-    'name': 'Restaurant',
+    'title': 'Restaurant',
     'icon': 'restaurant'
   },
 ];

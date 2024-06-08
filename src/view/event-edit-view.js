@@ -13,7 +13,7 @@ const createEventEditTemplate = (event = {}) => {
   } = event;
 
   const destinationName = destination.name;
-  const typeName = type.name;
+  const typeName = type.title;
 
   // const generateDestinaionNameDataList;
 

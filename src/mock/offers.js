@@ -54,7 +54,7 @@ const generateOffersByType = (item) => {
     element.id = i + 1;
   });
   return {
-    'type': item.name,
+    'type': item.title,
     'offers': offers
   };
 };

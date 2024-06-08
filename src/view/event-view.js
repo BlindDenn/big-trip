@@ -12,14 +12,14 @@ const createEventTemplate = (event) => {
 
   const date = humanizeEventDate(dateFrom);
   const typeIconName = type.icon;
-  const typeName = type.name;
+  const typeName = type.title;
   const destinationName = destination.name;
   const startTime = humanizeEventTime(dateFrom);
   const endTime = humanizeEventTime(dateTo);
   const duration = diffTimes(dateFrom, dateTo);
   const eventPrice = basePrice;
   const favoriteClassName = isFavorite? 'event__favorite-btn--active' : '';
-  const offersData = OFFERS_BY_TYPE.find((item) => item.type === type.name).offers;
+  const offersData = OFFERS_BY_TYPE.find((item) => item.type === type.title).offers;
   const selectedOffersData = offers.map((offer) => offersData.find((item) => item.id === offer));
 
   const selectedOffer = (offer) =>

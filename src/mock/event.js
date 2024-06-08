@@ -10,7 +10,7 @@ import { generateDestination } from './destination.js';
 import { OFFERS_BY_TYPE } from './offers.js';
 
 const generateDate = () => dayjs();
-const getOffersIdByType = (type) => OFFERS_BY_TYPE.find((element) => element.type === type.name);
+const getOffersIdByType = (type) => OFFERS_BY_TYPE.find((element) => element.type === type.title);
 
 export const generateEvent = () => {
   const type = getRandomItem(TYPE);
