@@ -1,32 +1,32 @@
 import dayjs from 'dayjs';
+import {TYPE} from '../const.js';
 import {
   getRandomInteger,
   getRandomBoolean,
-  getRandomItem
+  getRandomItem,
+  getSomeItems
 } from '../utils.js';
 import { generateDestination } from './destination.js';
+import { OFFERS_BY_TYPE } from './offers.js';
 
-const TYPE = [
-  'Taxi',
-  'Bus',
-  'Train',
-  'Ship',
-  'Drive',
-  'Flight',
-  'Check-in',
-  'Sightseeing',
-  'Restaurant'
-];
+const generateDate = () => dayjs();
+const getOffersIdByType = (type) => OFFERS_BY_TYPE.find((element) => element.type === type.name);
 
-const nowDate = dayjs();
+export const generateEvent = () => {
+  const type = getRandomItem(TYPE);
+  const dateFrom = generateDate();
+  const offersFullList = getOffersIdByType(type).offers;
+  const selectedOffers = getSomeItems(offersFullList);
+  const offers = selectedOffers.map((element) => element.id);
 
-export const generateEvent = () => ({
-  basePrice: getRandomInteger(25, 899),
-  dateFrom: nowDate,
-  dateTo: nowDate.add(getRandomInteger(15, 120), 'minute'),
-  destination: generateDestination(),
-  id: null,
-  isFavorite: getRandomBoolean(),
-  offers: null,
-  type: getRandomItem(TYPE),
-});
+  return {
+    basePrice: getRandomInteger(25, 899),
+    dateFrom: dateFrom.format(),
+    dateTo: dateFrom.add(getRandomInteger(15, 120), 'minute').format(),
+    destination: generateDestination(),
+    id: null,
+    isFavorite: getRandomBoolean(),
+    offers: offers,
+    type: type,
+  };
+};

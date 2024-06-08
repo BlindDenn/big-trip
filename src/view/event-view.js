@@ -1,3 +1,4 @@
+import { OFFERS_BY_TYPE } from '../mock/offers.js';
 import {createElement} from '../render.js';
 import {
   humanizeEventDate,
@@ -6,16 +7,30 @@ import {
 } from '../utils.js';
 
 const createEventTemplate = (event) => {
-  const {type, destination, dateFrom, dateTo, basePrice, isFavorite} = event;
+
+  const {type, destination, dateFrom, dateTo, basePrice, isFavorite, offers} = event;
 
   const dateTime = humanizeEventDate(dateFrom);
-  const typeIconName = type.toLowerCase();
+  const typeIconName = type.icon;
+  const typeName = type.name;
   const destinationName = destination.name;
   const startTime = humanizeEventTime(dateFrom);
   const endTime = humanizeEventTime(dateTo);
   const duration = diffTimes(dateFrom, dateTo);
   const eventPrice = basePrice;
   const favoriteClassName = isFavorite? 'event__favorite-btn--active' : '';
+  const offersData = OFFERS_BY_TYPE.find((item) => item.type === type.name).offers;
+  const selectedOffersData = offers.map((offer) => offersData.find((item) => item.id === offer));
+
+  const selectedOffer = (offer) => `<li class="event__offer">
+  <span class="event__offer-title">${offer.title}</span>
+  &plus;&euro;&nbsp;
+  <span class="event__offer-price">${offer.price}</span>
+  </li>`;
+
+  const selectedOffers = `<ul class="event__selected-offers">
+    ${selectedOffersData.map((data) => selectedOffer(data)).join('')}
+  </ul>`;
 
   return (
     `<li class="trip-events__item">
@@ -24,7 +39,7 @@ const createEventTemplate = (event) => {
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${typeIconName}.png" alt="Event type icon">
         </div>
-        <h3 class="event__title">${type} ${destinationName}</h3>
+        <h3 class="event__title">${typeName} ${destinationName}</h3>
         <div class="event__schedule">
           <p class="event__time">
             <time class="event__start-time" datetime="${dateFrom}">${startTime}</time>
@@ -37,13 +52,7 @@ const createEventTemplate = (event) => {
           &euro;&nbsp;<span class="event__price-value">${eventPrice}</span>
         </p>
         <h4 class="visually-hidden">Offers:</h4>
-        <ul class="event__selected-offers">
-          <li class="event__offer">
-            <span class="event__offer-title">Order Uber</span>
-            &plus;&euro;&nbsp;
-            <span class="event__offer-price">20</span>
-          </li>
-        </ul>
+          ${selectedOffers}
         <button class="event__favorite-btn ${favoriteClassName}" type="button">
           <span class="visually-hidden">Add to favorite</span>
           <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">

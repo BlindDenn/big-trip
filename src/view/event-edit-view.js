@@ -1,7 +1,23 @@
 import {createElement} from '../render.js';
 
-const createEventEditTemplate = () =>
-  `<li class="trip-events__item">
+const createEventEditTemplate = (event = {}) => {
+  const {
+    basePrice = null,
+    dateFrom = null,
+    dateTo = null,
+    destination = null,
+    id = null,
+    isFavorite = false,
+    offers = null,
+    type = null,
+  } = event;
+
+  const destinationName = destination.name;
+  const typeName = type.name;
+
+  // const generateDestinaionNameDataList;
+
+  return `<li class="trip-events__item">
     <form class="event event--edit" action="#" method="post">
       <header class="event__header">
         <div class="event__type-wrapper">
@@ -65,9 +81,9 @@ const createEventEditTemplate = () =>
 
         <div class="event__field-group  event__field-group--destination">
           <label class="event__label  event__type-output" for="event-destination-1">
-            Flight
+            ${typeName}
           </label>
-          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Chamonix" list="destination-list-1">
+          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destinationName}" list="destination-list-1">
           <datalist id="destination-list-1">
             <option value="Amsterdam"></option>
             <option value="Geneva"></option>
@@ -156,10 +172,15 @@ const createEventEditTemplate = () =>
       </section>
     </form>
   </li>`;
+};
 
 export default class EventEditView {
+  constructor (event) {
+    this.event = event;
+  }
+
   getTemplate() {
-    return createEventEditTemplate();
+    return createEventEditTemplate(this.event);
   }
 
   getElement() {

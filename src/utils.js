@@ -4,6 +4,11 @@ const getRandomInteger = (min, max) => Math.floor(Math.random()*(max - min + 1) 
 
 const getRandomBoolean = () => Math.random() < 0.5;
 
+const getCounter = () => {
+  let i = 1;
+  return () => i++;
+};
+
 const shuffleArray = (arr) => {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -22,6 +27,16 @@ const getSomeItems = (arr) => {
   arr.map((item) => {
     if (getRandomBoolean()) {
       result.push(item);
+    }
+  });
+  return shuffleArray(result);
+};
+
+const getSomeObjects = (arr) => {
+  const result = [];
+  arr.map((item) => {
+    if (getRandomBoolean()) {
+      result.push({...item});
     }
   });
   return shuffleArray(result);
@@ -51,6 +66,8 @@ export {
   getRandomBoolean,
   getRandomItem,
   getSomeItems,
+  getSomeObjects,
+  getCounter,
   humanizeEventDate,
   humanizeEventTime,
   diffTimes

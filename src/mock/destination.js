@@ -40,6 +40,9 @@ const DESTINATION = [
   {
     'name': 'Geneva',
     'description': 'Geneva is a resort area near the junction of France, Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it\'s renowned for its banking.'
+  },
+  {
+    'name': 'Syzran\'',
   }
 ];
 
@@ -63,3 +66,5 @@ export const generateDestination = () => {
   };
 
 };
+
+export const getDestinations = () => DESTINATION;
