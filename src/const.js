@@ -2,38 +2,38 @@
 export const TYPE = [
   {
     'title': 'Taxi',
-    'icon': 'taxi'
+    'name': 'taxi'
   },
   {
     'title': 'Bus',
-    'icon': 'bus'
+    'name': 'bus'
   },
   {
     'title': 'Train',
-    'icon': 'train'
+    'name': 'train'
   },
   {
     'title': 'Ship',
-    'icon': 'ship'
+    'name': 'ship'
   },
   {
     'title': 'Drive',
-    'icon': 'drive'
+    'name': 'drive'
   },
   {
     'title': 'Flight',
-    'icon': 'flight'
+    'name': 'flight'
   },
   {
     'title': 'Check-in',
-    'icon': 'check-in'
+    'name': 'check-in'
   },
   {
     'title': 'Sightseeing',
-    'icon': 'Sightseeing'
+    'name': 'sightseeing'
   },
   {
     'title': 'Restaurant',
-    'icon': 'restaurant'
+    'name': 'restaurant'
   },
 ];
