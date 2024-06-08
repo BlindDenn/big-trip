@@ -28,7 +28,7 @@ const IMG_FILES = [
   },
 ];
 
-const DESTINATION = [
+export const DESTINATION = [
   {
     'name': 'Chamonix',
     'description': 'Chamonix-Mont-Blanc (usually shortened to Chamonix) is a resort area near the junction of France,  Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it\'s renowned for its skiing.'

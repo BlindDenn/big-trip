@@ -1,29 +1,62 @@
+import dayjs from 'dayjs';
 import {createElement} from '../render.js';
 import { TYPE } from '../const.js';
+import { OFFERS_BY_TYPE } from '../mock/offers.js';
 
-const createEventEditTemplate = (event = {}) => {
+const createEventEditTemplate = (event = {}, destinations) => {
   const {
     basePrice = null,
     dateFrom = null,
     dateTo = null,
     destination = null,
-    id = null,
-    isFavorite = false,
+    // id = null,
+    // isFavorite = false,
     offers = null,
     type = null,
   } = event;
+
+  const destinationNames = destinations.map((item) => item.name);
 
   const types = [...TYPE];
   const destinationName = destination.name;
   const typeName = type.title;
   const typeIconName = type.name;
+  const offersByType = OFFERS_BY_TYPE.find((offer) => offer.type === type.title).offers;
 
-  const typeItem = (item) => `<div class="event__type-item">
-    <input id="event-type-${item.name}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item.name}" ${item.name === type.name? 'checked' : ''}>
-    <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">${item.title}</label>
-  </div>`;
+  const typeItem = (item) => {
+    const checked = item.name === type.name? 'checked' : '';
 
+    return `<div class="event__type-item">
+      <input id="event-type-${item.name}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item.name}" ${checked}>
+      <label class="event__type-label  event__type-label--${item.name}" for="event-type-taxi-1">${item.title}</label>
+    </div>`;
+  };
   const typeItems = types.map((item) => typeItem(item)).join('');
+
+  const destinationListOption = (name) => `<option value="${name}"></option>`;
+  const destinationListOptions = destinationNames.map((name) => destinationListOption(name)).join('');
+
+  const startTime = dayjs(dateFrom).format('DD/MM/YY HH:mm');
+  const endTime = dayjs(dateTo).format('DD/MM/YY HH:mm');
+
+  const eventPrice = basePrice;
+
+  const offerSelector = (offer) => {
+    const offerName = offer.name;
+    const offerTitle = offer.title;
+    const offerPrice = offer.price;
+    const checked = offers.some((item) => item === offer.id)? 'checked' : '';
+
+    return `<div class="event__offer-selector">
+      <input class="event__offer-checkbox  visually-hidden" id="event-offer-${offerName}-1" type="checkbox" name="event-offer-${offerName}" ${checked}>
+      <label class="event__offer-label" for="event-offer-${offerName}-1">
+        <span class="event__offer-title">${offerTitle}</span>
+        &plus;&euro;&nbsp;
+        <span class="event__offer-price">${offerPrice}</span>
+      </label>
+    </div>`;
+  };
+  const offerSelectors = offersByType.map((offer) => offerSelector(offer)).join('');
 
   return `<li class="trip-events__item">
     <form class="event event--edit" action="#" method="post">
@@ -51,18 +84,16 @@ const createEventEditTemplate = (event = {}) => {
           </label>
           <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destinationName}" list="destination-list-1">
           <datalist id="destination-list-1">
-            <option value="Amsterdam"></option>
-            <option value="Geneva"></option>
-            <option value="Chamonix"></option>
+            ${destinationListOptions}
           </datalist>
         </div>
 
         <div class="event__field-group  event__field-group--time">
           <label class="visually-hidden" for="event-start-time-1">From</label>
-          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="18/03/19 12:25">
+          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${startTime}">
           &mdash;
           <label class="visually-hidden" for="event-end-time-1">To</label>
-          <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="18/03/19 13:35">
+          <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${endTime}">
         </div>
 
         <div class="event__field-group  event__field-group--price">
@@ -70,7 +101,7 @@ const createEventEditTemplate = (event = {}) => {
             <span class="visually-hidden">Price</span>
             &euro;
           </label>
-          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="160">
+          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${eventPrice}">
         </div>
 
         <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -84,50 +115,9 @@ const createEventEditTemplate = (event = {}) => {
           <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
           <div class="event__available-offers">
-            <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked>
-              <label class="event__offer-label" for="event-offer-luggage-1">
-                <span class="event__offer-title">Add luggage</span>
-                &plus;&euro;&nbsp;
-                <span class="event__offer-price">50</span>
-              </label>
-            </div>
 
-            <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox" name="event-offer-comfort" checked>
-              <label class="event__offer-label" for="event-offer-comfort-1">
-                <span class="event__offer-title">Switch to comfort</span>
-                &plus;&euro;&nbsp;
-                <span class="event__offer-price">80</span>
-              </label>
-            </div>
+            ${offerSelectors}
 
-            <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox" name="event-offer-meal">
-              <label class="event__offer-label" for="event-offer-meal-1">
-                <span class="event__offer-title">Add meal</span>
-                &plus;&euro;&nbsp;
-                <span class="event__offer-price">15</span>
-              </label>
-            </div>
-
-            <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox" name="event-offer-seats">
-              <label class="event__offer-label" for="event-offer-seats-1">
-                <span class="event__offer-title">Choose seats</span>
-                &plus;&euro;&nbsp;
-                <span class="event__offer-price">5</span>
-              </label>
-            </div>
-
-            <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
-              <label class="event__offer-label" for="event-offer-train-1">
-                <span class="event__offer-title">Travel by train</span>
-                &plus;&euro;&nbsp;
-                <span class="event__offer-price">40</span>
-              </label>
-            </div>
           </div>
         </section>
 
@@ -141,12 +131,13 @@ const createEventEditTemplate = (event = {}) => {
 };
 
 export default class EventEditView {
-  constructor (event) {
+  constructor (event, destinations) {
     this.event = event;
+    this.destinations = destinations;
   }
 
   getTemplate() {
-    return createEventEditTemplate(this.event);
+    return createEventEditTemplate(this.event, this.destinations);
   }
 
   getElement() {
