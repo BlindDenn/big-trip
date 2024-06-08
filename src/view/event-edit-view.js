@@ -58,6 +58,23 @@ const createEventEditTemplate = (event = {}, destinations) => {
   };
   const offerSelectors = offersByType.map((offer) => offerSelector(offer)).join('');
 
+  const destinationDescription = destination.description;
+  const destinationPictures = destination.pictures.map((picture) => picture.src);
+  const destinationBlockDescription = destination.description?
+    `<p class="event__destination-description">${destinationDescription}</p>` : '';
+  const destinationBlockPicture = (picture) => `<img class="event__photo" src="${picture}" alt="Event photo">`;
+  const destinationBlockPictures = destinationPictures.length?
+    `<div class="event__photos-container">
+      <div class="event__photos-tape">
+        ${destinationPictures.map((picture) => destinationBlockPicture(picture)).join('')}
+      </div>
+    </div>` : '';
+  const destinationBlock = destination.description || destination.pictures.length? `<section class="event__section  event__section--destination">
+    <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+    ${destinationBlockDescription}
+    ${destinationBlockPictures}
+  </section>` : '';
+
   return `<li class="trip-events__item">
     <form class="event event--edit" action="#" method="post">
       <header class="event__header">
@@ -121,10 +138,7 @@ const createEventEditTemplate = (event = {}, destinations) => {
           </div>
         </section>
 
-        <section class="event__section  event__section--destination">
-          <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-          <p class="event__destination-description">Chamonix-Mont-Blanc (usually shortened to Chamonix) is a resort area near the junction of France, Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it's renowned for its skiing.</p>
-        </section>
+        ${destinationBlock}
       </section>
     </form>
   </li>`;
