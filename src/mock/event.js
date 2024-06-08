@@ -20,9 +20,9 @@ export const generateEvent = () => {
   const offers = selectedOffers.map((element) => element.id);
 
   return {
-    basePrice: getRandomInteger(25, 899),
+    basePrice: getRandomInteger(2, 40) * 10,
     dateFrom: dateFrom.format(),
-    dateTo: dateFrom.add(getRandomInteger(15, 120), 'minute').format(),
+    dateTo: dateFrom.add(getRandomInteger(1, 24) * 5, 'minute').format(),
     destination: generateDestination(),
     id: null,
     isFavorite: getRandomBoolean(),

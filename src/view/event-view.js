@@ -10,7 +10,7 @@ const createEventTemplate = (event) => {
 
   const {type, destination, dateFrom, dateTo, basePrice, isFavorite, offers} = event;
 
-  const dateTime = humanizeEventDate(dateFrom);
+  const date = humanizeEventDate(dateFrom);
   const typeIconName = type.icon;
   const typeName = type.name;
   const destinationName = destination.name;
@@ -22,20 +22,19 @@ const createEventTemplate = (event) => {
   const offersData = OFFERS_BY_TYPE.find((item) => item.type === type.name).offers;
   const selectedOffersData = offers.map((offer) => offersData.find((item) => item.id === offer));
 
-  const selectedOffer = (offer) => `<li class="event__offer">
-  <span class="event__offer-title">${offer.title}</span>
-  &plus;&euro;&nbsp;
-  <span class="event__offer-price">${offer.price}</span>
-  </li>`;
+  const selectedOffer = (offer) =>
+    `<li class="event__offer">
+      <span class="event__offer-title">${offer.title}</span>
+      &plus;&euro;&nbsp;
+      <span class="event__offer-price">${offer.price}</span>
+    </li>`;
 
-  const selectedOffers = `<ul class="event__selected-offers">
-    ${selectedOffersData.map((data) => selectedOffer(data)).join('')}
-  </ul>`;
+  const offersList = selectedOffersData.map((offer) => selectedOffer(offer)).join('');
 
   return (
     `<li class="trip-events__item">
       <div class="event">
-        <time class="event__date" datetime="${dateFrom}">${dateTime}</time>
+        <time class="event__date" datetime="${dateFrom}">${date}</time>
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${typeIconName}.png" alt="Event type icon">
         </div>
@@ -52,7 +51,9 @@ const createEventTemplate = (event) => {
           &euro;&nbsp;<span class="event__price-value">${eventPrice}</span>
         </p>
         <h4 class="visually-hidden">Offers:</h4>
-          ${selectedOffers}
+          <ul class="event__selected-offers">
+            ${offersList}
+          </ul>
         <button class="event__favorite-btn ${favoriteClassName}" type="button">
           <span class="visually-hidden">Add to favorite</span>
           <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
