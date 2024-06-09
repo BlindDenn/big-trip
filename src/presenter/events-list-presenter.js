@@ -5,25 +5,26 @@ import EventView from '../view/event-view.js';
 import EventEditView from '../view/event-edit-view.js';
 
 export default class EventsListPresenter {
-  eventsListComponent = new EventsListView();
+  #eventsListComponent = new EventsListView();
+  #eventsListContainer = null;
+  #eventsModel = null;
+  #events = null;
+  #destinationsModel = null;
+  #destinations = null;
 
-  constructor(eventsListContainer) {
-    this.eventsListContainer = eventsListContainer;
-  }
-
-  init(eventsModel, destinationsModel) {
-    this.eventsModel = eventsModel;
-    this.events = [...this.eventsModel.events];
-    this.destinationsModel = destinationsModel;
-    this.destinations = [...this.destinationsModel.destinations];
+  init(eventsListContainer, eventsModel, destinationsModel) {
+    this.#eventsListContainer = eventsListContainer;
+    this.#eventsModel = eventsModel;
+    this.#events = [...this.#eventsModel.events];
+    this.#destinationsModel = destinationsModel;
+    this.#destinations = [...this.#destinationsModel.destinations];
 
 
-    render(this.eventsListComponent, this.eventsListContainer);
-    render(new EventEditView(this.events[0], this.destinations), this.eventsListComponent.getElement());
-    render(new EventEditView({}, this.destinations), this.eventsListComponent.getElement());
-    // render(new EventAddView(), this.eventsListComponent.getElement());
-    for (const event of this.events) {
-      render(new EventView(event), this.eventsListComponent.getElement());
+    render(this.#eventsListComponent, this.#eventsListContainer);
+    render(new EventEditView(this.#events[0], this.#destinations), this.#eventsListComponent.getElement());
+    render(new EventEditView({}, this.#destinations), this.#eventsListComponent.getElement());
+    for (const event of this.#events) {
+      render(new EventView(event), this.#eventsListComponent.getElement());
     }
   }
 }

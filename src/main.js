@@ -16,6 +16,6 @@ const destinationsModel = new DestinationModel();
 render(new TripInfoView(), tripMainElement, RenderPosition.AFTERBEGIN);
 render(new FilterView(), filtersElement);
 render(new SortView(), eventsContainer);
-const eventsListPresenter = new EventsListPresenter(eventsContainer);
+const eventsListPresenter = new EventsListPresenter();
 
-eventsListPresenter.init(eventsModel, destinationsModel);
+eventsListPresenter.init(eventsContainer, eventsModel, destinationsModel);
