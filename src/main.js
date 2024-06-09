@@ -12,12 +12,10 @@ const eventsContainer = document.querySelector('.trip-events');
 const eventsModel = new EventsModel();
 const destinationsModel = new DestinationModel();
 
+
 render(new TripInfoView(), tripMainElement, RenderPosition.AFTERBEGIN);
 render(new FilterView(), filtersElement);
 render(new SortView(), eventsContainer);
 const eventsListPresenter = new EventsListPresenter(eventsContainer);
 
 eventsListPresenter.init(eventsModel, destinationsModel);
-
-
-import './mock/offers.js';

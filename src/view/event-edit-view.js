@@ -1,27 +1,27 @@
-import dayjs from 'dayjs';
 import {createElement} from '../render.js';
 import { TYPE } from '../const.js';
 import { OFFERS_BY_TYPE } from '../mock/offers.js';
+import { humanizeEventTimeFull } from '../utils.js';
 
 const createEventEditTemplate = (event = {}, destinations) => {
   const {
     basePrice = null,
     dateFrom = null,
     dateTo = null,
-    destination = null,
+    destination = {'name': null, 'pictures': []},
     // id = null,
     // isFavorite = false,
-    offers = null,
-    type = null,
+    offers = [],
+    type = {'title': null, 'name': null}
   } = event;
 
   const destinationNames = destinations.map((item) => item.name);
 
   const types = [...TYPE];
-  const destinationName = destination.name;
-  const typeName = type.title;
-  const typeIconName = type.name;
-  const offersByType = OFFERS_BY_TYPE.find((offer) => offer.type === type.title).offers;
+  const destinationName = destination.name || 'Choose destination';
+  const typeName = type.title || '&larr; Select';
+  const typeIconName = type.name || 'taxi';
+  const offersByType = (OFFERS_BY_TYPE.find((offer) => offer.type === type.title) || {}).offers;
 
   const typeItem = (item) => {
     const checked = item.name === type.name? 'checked' : '';
@@ -36,8 +36,8 @@ const createEventEditTemplate = (event = {}, destinations) => {
   const destinationListOption = (name) => `<option value="${name}"></option>`;
   const destinationListOptions = destinationNames.map((name) => destinationListOption(name)).join('');
 
-  const startTime = dayjs(dateFrom).format('DD/MM/YY HH:mm');
-  const endTime = dayjs(dateTo).format('DD/MM/YY HH:mm');
+  const startTime = humanizeEventTimeFull(dateFrom);
+  const endTime = humanizeEventTimeFull(dateTo);
 
   const eventPrice = basePrice;
 
@@ -56,10 +56,10 @@ const createEventEditTemplate = (event = {}, destinations) => {
       </label>
     </div>`;
   };
-  const offerSelectors = offersByType.map((offer) => offerSelector(offer)).join('');
+  const offerSelectors = (offersByType || []).map((offer) => offerSelector(offer)).join('');
 
   const destinationDescription = destination.description;
-  const destinationPictures = destination.pictures.map((picture) => picture.src);
+  const destinationPictures = (destination.pictures || []).map((picture) => picture.src);
   const destinationBlockDescription = destination.description?
     `<p class="event__destination-description">${destinationDescription}</p>` : '';
   const destinationBlockPicture = (picture) => `<img class="event__photo" src="${picture}" alt="Event photo">`;

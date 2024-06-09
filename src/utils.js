@@ -43,7 +43,18 @@ const getSomeObjects = (arr) => {
 };
 
 const humanizeEventDate = (date) => dayjs(date).format('MMM D');
-const humanizeEventTime = (date) => dayjs(date).format('HH:mm');
+const humanizeEventTimeFull = (date) => dayjs(date).isValid()? dayjs(date).format('DD/MM/YY HH:mm') : 'Choose Date';
+const humanizeEventTime = (date) => dayjs(date).isValid()? dayjs(date).format('HH:mm') : 'Choose Date';
+
+// const humanizeStartTime = (dateFrom, dateTo) => {
+//   dateFrom = dayjs(dateFrom);
+//   const isDiffDays = dateFrom.format(dateFrom, 'day');
+//   // const isDiffDays = () => !dayjs(dateFrom).diff(dayjs(dateTo)).format('D');
+//   return isDiffDays;
+// };
+
+// console.log(humanizeStartTime('01-01-2000 23:50', '01-02-2000 00:10'));
+
 const diffTimes = (dateFrom, dateTo) => {
   const dayDiff = dayjs(dateTo).diff(dateFrom, 'd');
   const hourDiff = dayjs(dateTo).diff(dateFrom, 'h') % 24;
@@ -70,5 +81,6 @@ export {
   getCounter,
   humanizeEventDate,
   humanizeEventTime,
+  humanizeEventTimeFull,
   diffTimes
 };

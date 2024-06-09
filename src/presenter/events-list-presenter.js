@@ -20,6 +20,7 @@ export default class EventsListPresenter {
 
     render(this.eventsListComponent, this.eventsListContainer);
     render(new EventEditView(this.events[0], this.destinations), this.eventsListComponent.getElement());
+    render(new EventEditView({}, this.destinations), this.eventsListComponent.getElement());
     // render(new EventAddView(), this.eventsListComponent.getElement());
     for (const event of this.events) {
       render(new EventView(event), this.eventsListComponent.getElement());
