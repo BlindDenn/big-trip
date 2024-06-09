@@ -13,9 +13,9 @@ export default class EventsListPresenter {
 
   init(eventsModel, destinationsModel) {
     this.eventsModel = eventsModel;
-    this.events = [...this.eventsModel.getEvents()];
+    this.events = [...this.eventsModel.events];
     this.destinationsModel = destinationsModel;
-    this.destinations = [...this.destinationsModel.getDestinations()];
+    this.destinations = [...this.destinationsModel.destinations];
 
 
     render(this.eventsListComponent, this.eventsListContainer);
