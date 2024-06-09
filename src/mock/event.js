@@ -9,7 +9,7 @@ import {
 import { generateDestination } from './destination.js';
 import { OFFERS_BY_TYPE } from './offers.js';
 
-const generateDate = () => dayjs();
+const generateDate = () => dayjs().toDate();
 const getOffersIdByType = (type) => OFFERS_BY_TYPE.find((element) => element.type === type.title);
 
 export const generateEvent = () => {
@@ -21,8 +21,8 @@ export const generateEvent = () => {
 
   return {
     basePrice: getRandomInteger(2, 40) * 10,
-    dateFrom: dateFrom.format(),
-    dateTo: dateFrom.add(getRandomInteger(1, 24) * 5, 'minute').format(),
+    dateFrom: dateFrom,
+    dateTo: dayjs(dateFrom).add(getRandomInteger(1, 24) * 5, 'minute').toDate(),
     destination: generateDestination(),
     id: null,
     isFavorite: getRandomBoolean(),
