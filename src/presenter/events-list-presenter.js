@@ -36,10 +36,15 @@ export default class EventsListPresenter {
     };
 
     const replaceFormToCard = () => {
-      this.#eventsListComponent.element.replaceChild(eventEditComponent.element, eventComponent.element);
+      this.#eventsListComponent.element.replaceChild(eventComponent.element, eventEditComponent.element);
     };
 
     eventComponent.element.querySelector('.event__rollup-btn').addEventListener('click', replaceCardToForm);
+
+    eventEditComponent.element.querySelector('form').addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      replaceFormToCard();
+    });
 
     render(eventComponent, this.#eventsListComponent.element);
   };
