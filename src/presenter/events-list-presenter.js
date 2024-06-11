@@ -19,13 +19,29 @@ export default class EventsListPresenter {
     this.#destinationsModel = destinationsModel;
     this.#destinations = [...this.#destinationsModel.destinations];
 
-
     render(this.#eventsListComponent, this.#eventsListContainer);
-    render(new EventEditView(this.#events[0], this.#destinations), this.#eventsListComponent.element);
-    render(new EventEditView({}, this.#destinations), this.#eventsListComponent.element);
+    // render(new EventEditView(this.#events[0], this.#destinations), this.#eventsListComponent.element);
+    // render(new EventEditView({}, this.#destinations), this.#eventsListComponent.element);
     for (const event of this.#events) {
-      render(new EventView(event), this.#eventsListComponent.element);
+      this.#renderEvent(event, this.#destinations);
     }
   }
+
+  #renderEvent = (event, destinations) => {
+    const eventComponent = new EventView(event);
+    const eventEditComponent = new EventEditView(event, destinations);
+
+    const replaceCardToForm = () => {
+      this.#eventsListComponent.element.replaceChild(eventEditComponent.element, eventComponent.element);
+    };
+
+    const replaceFormToCard = () => {
+      this.#eventsListComponent.element.replaceChild(eventEditComponent.element, eventComponent.element);
+    };
+
+    eventComponent.element.querySelector('.event__rollup-btn').addEventListener('click', replaceCardToForm);
+
+    render(eventComponent, this.#eventsListComponent.element);
+  };
 }
 
