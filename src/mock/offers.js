@@ -1,5 +1,24 @@
 import { getSomeObjects } from '../utils.js';
 import { TYPE } from '../const.js';
+import {getRandomInteger} from '../utils.js';
+
+
+const generateId = () => {
+  let i = 0;
+  return () => ++i;
+};
+
+const generateRandomPrice = () => getRandomInteger(1, 20) * 10;
+
+const generateOfferId = generateId();
+
+class Offer{
+  constructor(title) {
+    this.id = generateOfferId();
+    this.title = title;
+    this.price = generateRandomPrice();
+  }
+}
 
 export const OFFER = [
   {
@@ -59,6 +78,24 @@ export const OFFER = [
   },
 ];
 
+export const OFFER_TITLES = [
+  'Add luggage',
+  'Switch to comfort class',
+  'Add meal',
+  'Choose seats',
+  'Travel by train',
+  'Upgrade to a business class',
+  'Order Uber',
+  'Rent a car',
+  'Add breakfast',
+  'Book tickets',
+  'Lunch in city',
+];
+
+const OFFERS = OFFER_TITLES.map((element) => new Offer(element));
+
+console.log(OFFERS);
+
 const generateOffersByType = (item) => {
   const offers = getSomeObjects(OFFER);
   offers.forEach((element, i) => {
@@ -71,6 +108,8 @@ const generateOffersByType = (item) => {
 };
 
 export const OFFERS_BY_TYPE = TYPE.map((item) => generateOffersByType(item));
+
+console.log(OFFERS_BY_TYPE);
 
 // OFFERS_BY_TYPE[0].offers[0].id = 1;
 // console.log(OFFERS_BY_TYPE[0].offers[0]);

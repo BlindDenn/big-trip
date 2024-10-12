@@ -11,7 +11,7 @@ const createEventTemplate = (event) => {
   const {type, destination, dateFrom, dateTo, basePrice, isFavorite, offers} = event;
 
   const date = humanizeEventDate(dateFrom);
-  const typeIconName = type.name;
+  const typeIconName = type.title.toLowerCase();
   const typeName = type.title;
   const destinationName = destination.name;
   const startTime = humanizeEventTime(dateFrom);

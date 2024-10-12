@@ -28,7 +28,7 @@ const IMG_FILES = [
   },
 ];
 
-export const DESTINATION = [
+export const DESTINATIONS = [
   {
     'name': 'Chamonix',
     'description': 'Chamonix-Mont-Blanc (usually shortened to Chamonix) is a resort area near the junction of France,  Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it\'s renowned for its skiing.'
@@ -54,17 +54,16 @@ const addPhotos = () => {
   return result;
 };
 
-DESTINATION.forEach((item) => {item.pictures = addPhotos();});
+DESTINATIONS.forEach((item) => {item.pictures = addPhotos();});
 
 
 export const generateDestination = () => {
-  const {name, description, pictures} = getRandomItem(DESTINATION);
+  const {name, description, pictures} = getRandomItem(DESTINATIONS);
   return {
     'description': description,
     'name': name,
     'pictures': pictures,
   };
-
 };
 
-export const getDestinations = () => DESTINATION;
+export const getDestinations = () => DESTINATIONS;

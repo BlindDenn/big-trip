@@ -20,11 +20,11 @@ const createEventEditTemplate = (event = {}, destinations) => {
   const types = [...TYPE];
   const destinationName = destination.name || 'Choose destination';
   const typeName = type.title || '&larr; Select';
-  const typeIconName = type.name || 'taxi';
+  const typeIconName = type.title.toLowerCase() || 'taxi';
   const offersByType = (OFFERS_BY_TYPE.find((offer) => offer.type === type.title) || {}).offers;
 
   const typeItem = (item) => {
-    const checked = item.name === type.name? 'checked' : '';
+    const checked = item.name === type.title.toLowerCase() ? 'checked' : '';
 
     return `<div class="event__type-item">
       <input id="event-type-${item.name}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item.name}" ${checked}>
