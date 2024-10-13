@@ -32,16 +32,6 @@ const getSomeItems = (arr) => {
   return shuffleArray(result);
 };
 
-const getSomeObjects = (arr) => {
-  const result = [];
-  arr.map((item) => {
-    if (getRandomBoolean()) {
-      result.push({...item});
-    }
-  });
-  return shuffleArray(result);
-};
-
 const humanizeEventDate = (date) => dayjs(date).format('MMM D');
 const humanizeEventTimeFull = (date) => dayjs(date).isValid()? dayjs(date).format('DD/MM/YY HH:mm') : 'Choose Date';
 const humanizeEventTime = (date) => dayjs(date).isValid()? dayjs(date).format('HH:mm') : 'Choose Date';
@@ -77,7 +67,6 @@ export {
   getRandomBoolean,
   getRandomItem,
   getSomeItems,
-  getSomeObjects,
   getCounter,
   humanizeEventDate,
   humanizeEventTime,

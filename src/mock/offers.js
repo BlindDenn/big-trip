@@ -1,4 +1,4 @@
-import { getSomeObjects } from '../utils.js';
+import { getSomeItems } from '../utils.js';
 import { TYPE } from '../const.js';
 import {getRandomInteger} from '../utils.js';
 
@@ -95,7 +95,7 @@ export const OFFER_TITLES = [
 const OFFERS = OFFER_TITLES.map((element) => new Offer(element));
 
 const generateOffersByType = (item) => {
-  const offers = getSomeObjects(OFFERS);
+  const offers = getSomeItems(OFFERS);
   return {
     'type': item.title,
     'offers': offers
