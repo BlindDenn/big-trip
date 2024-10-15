@@ -42,14 +42,14 @@ const createEventEditTemplate = (event = {}, destinations) => {
   const eventPrice = basePrice;
 
   const offerSelector = (offer) => {
-    const offerName = offer.name;
+    const offerId = offer.id;
     const offerTitle = offer.title;
     const offerPrice = offer.price;
     const checked = offers.includes(offer.id)? 'checked' : '';
 
     return `<div class="event__offer-selector">
-      <input class="event__offer-checkbox  visually-hidden" id="event-offer-${offerName}-1" type="checkbox" name="event-offer-${offerName}" ${checked}>
-      <label class="event__offer-label" for="event-offer-${offerName}-1">
+      <input class="event__offer-checkbox  visually-hidden" id="event-offer-id-${offerId}" type="checkbox" name="event-offer-id-${offerId}" ${checked}>
+      <label class="event__offer-label" for="event-offer-id-${offerId}">
         <span class="event__offer-title">${offerTitle}</span>
         &plus;&euro;&nbsp;
         <span class="event__offer-price">${offerPrice}</span>
