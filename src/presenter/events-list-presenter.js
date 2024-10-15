@@ -33,6 +33,7 @@ export default class EventsListPresenter {
 
     const replaceCardToForm = () => {
       this.#eventsListComponent.element.replaceChild(eventEditComponent.element, eventComponent.element);
+      document.addEventListener('keydown', onEscKeyDown);
     };
 
     const replaceFormToCard = () => {
@@ -41,10 +42,21 @@ export default class EventsListPresenter {
 
     eventComponent.element.querySelector('.event__rollup-btn').addEventListener('click', replaceCardToForm);
 
-    eventEditComponent.element.querySelector('form').addEventListener('submit', (evt) => {
+    eventEditComponent.element.querySelector('form').addEventListener('submit', onFormSubmit);
+
+    function onFormSubmit (evt) {
       evt.preventDefault();
       replaceFormToCard();
-    });
+      document.removeEventListener('keydown', onEscKeyDown);
+    }
+
+    function onEscKeyDown (evt) {
+      evt.preventDefault();
+      if (evt.code === 'Escape') {
+        replaceFormToCard();
+        document.removeEventListener('keydown', onEscKeyDown);
+      }
+    }
 
     render(eventComponent, this.#eventsListComponent.element);
   };
