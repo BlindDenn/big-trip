@@ -40,11 +40,16 @@ export default class EventsListPresenter {
       this.#eventsListComponent.element.replaceChild(eventComponent.element, eventEditComponent.element);
     };
 
-    eventComponent.element.querySelector('.event__rollup-btn').addEventListener('click', replaceCardToForm);
+    eventComponent.linkToEventEdit.addEventListener('click', replaceCardToForm);
 
-    eventEditComponent.element.querySelector('form').addEventListener('submit', onFormSubmit);
+    eventEditComponent.form.addEventListener('submit', onFormSubmit);
+    eventEditComponent.linkBackToEvent.addEventListener('click', backToEventCard);
 
     function onFormSubmit (evt) {
+      backToEventCard(evt);
+    }
+
+    function backToEventCard (evt) {
       evt.preventDefault();
       replaceFormToCard();
       document.removeEventListener('keydown', onEscKeyDown);

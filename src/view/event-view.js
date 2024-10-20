@@ -88,6 +88,14 @@ export default class EventView {
     return this.#element;
   }
 
+  get linkToEventEdit() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element.querySelector('.event__rollup-btn');
+  }
+
   removeElement() {
     this.element = null;
   }

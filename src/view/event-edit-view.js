@@ -168,6 +168,22 @@ export default class EventEditView {
     return this.#element;
   }
 
+  get form() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element.querySelector('form');
+  }
+
+  get linkBackToEvent() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+
+    return this.#element.querySelector('.event__rollup-btn');
+  }
+
   removeElement() {
     this.#element = null;
   }
