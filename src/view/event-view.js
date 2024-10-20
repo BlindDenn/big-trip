@@ -89,10 +89,6 @@ export default class EventView {
   }
 
   get linkToEventEdit() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
     return this.#element.querySelector('.event__rollup-btn');
   }
 

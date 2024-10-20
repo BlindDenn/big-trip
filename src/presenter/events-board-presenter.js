@@ -1,25 +1,29 @@
 import { render } from '../render.js';
+import SortView from '../view/sort-view.js';
 import EventsListView from '../view/events-list-view.js';
 import EventView from '../view/event-view.js';
 // import EventAddView from '../view/event-add.js';
 import EventEditView from '../view/event-edit-view.js';
 
 export default class EventsListPresenter {
+  #eventsBoardContainer = null;
+  #sortViewComponent = new SortView();
   #eventsListComponent = new EventsListView();
-  #eventsListContainer = null;
   #eventsModel = null;
   #events = null;
   #destinationsModel = null;
   #destinations = null;
 
-  init(eventsListContainer, eventsModel, destinationsModel) {
-    this.#eventsListContainer = eventsListContainer;
+  init(eventsBoardContainer, eventsModel, destinationsModel) {
+    this.#eventsBoardContainer = eventsBoardContainer;
     this.#eventsModel = eventsModel;
     this.#events = [...this.#eventsModel.events];
     this.#destinationsModel = destinationsModel;
     this.#destinations = [...this.#destinationsModel.destinations];
 
-    render(this.#eventsListComponent, this.#eventsListContainer);
+    render(this.#sortViewComponent, this.#eventsBoardContainer);
+
+    render(this.#eventsListComponent, this.#eventsBoardContainer);
     // render(new EventEditView(this.#events[0], this.#destinations), this.#eventsListComponent.element);
     // render(new EventEditView({}, this.#destinations), this.#eventsListComponent.element);
     for (const event of this.#events) {
@@ -40,10 +44,6 @@ export default class EventsListPresenter {
       this.#eventsListComponent.element.replaceChild(eventComponent.element, eventEditComponent.element);
     };
 
-    eventComponent.linkToEventEdit.addEventListener('click', replaceCardToForm);
-
-    eventEditComponent.form.addEventListener('submit', onFormSubmit);
-    eventEditComponent.linkBackToEvent.addEventListener('click', backToEventCard);
 
     function onFormSubmit (evt) {
       backToEventCard(evt);
@@ -64,6 +64,12 @@ export default class EventsListPresenter {
     }
 
     render(eventComponent, this.#eventsListComponent.element);
+
+    eventComponent.linkToEventEdit.addEventListener('click', replaceCardToForm);
+
+    eventEditComponent.form.addEventListener('submit', onFormSubmit);
+    eventEditComponent.linkBackToEvent.addEventListener('click', backToEventCard);
+
   };
 }
 

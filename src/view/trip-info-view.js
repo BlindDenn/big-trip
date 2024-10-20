@@ -1,4 +1,5 @@
 import {createElement} from '../render.js';
+// import from {} '../model/events-model.js';
 
 const createTripInfoTemplate = () =>
   `<section class="trip-main__trip-info  trip-info">
